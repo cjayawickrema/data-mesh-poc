@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.2'
     id 'io.spring.dependency-management' version '1.0.14.RELEASE'
+    id 'org.flywaydb.flyway' version '9.22.3'
 }
 
 group = 'org.example'
@@ -14,11 +15,19 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.flywaydb:flyway-core'
-    runtimeOnly 'org.postgresql:postgresql'  // Example DB driver (optional)
+    implementation 'org.postgresql:postgresql'
+    runtimeOnly 'org.postgresql:postgresql'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
+flyway {
+    url = 'jdbc:postgresql://localhost:5432/pricing'
+    user = 'hello'
+    password = 'world'
+    locations = ['classpath:db/migration']
+    baselineOnMigrate = true
+}
 
 test {
     useJUnitPlatform()

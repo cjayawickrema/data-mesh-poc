@@ -17,21 +17,40 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="71a7df5b-0443-400e-b875-b2a6788a2804">
-      <console name="pricing" type="STANDARD" schema="" session="Main" />
+      <console name="pricing" type="STANDARD" schema="public" session="Main"><![CDATA[select * from product]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="71a7df5b-0443-400e-b875-b2a6788a2804" object-ref="consoles/pricing" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="71a7df5b-0443-400e-b875-b2a6788a2804" />
   </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="71a7df5b-0443-400e-b875-b2a6788a2804" dataset="public.customer" active-filter-id="">
+      <filter id="cfdd68b5-0a65-4f0d-ba16-945ada74341e" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="customer_id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
+    <filter-actions connection-id="71a7df5b-0443-400e-b875-b2a6788a2804" dataset="public.product" active-filter-id="" />
+  </component>
+  <component name="DBNavigator.Project.ExecutionManager">
+    <retain-sticky-names value="false" />
+  </component>
+  <component name="DBNavigator.Project.FileConnectionMappingManager">
+    <mapping file-url="file://$PROJECT_DIR$/src/main/resources/db/migration/V2__Insert_Seed_Data.sql" connection-id="71a7df5b-0443-400e-b875-b2a6788a2804" session-id="MAIN" current-schema="public" />
+  </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
     <filters />
+  </component>
+  <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
+    <recently-used-interfaces />
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>

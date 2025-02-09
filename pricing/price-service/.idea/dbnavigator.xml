@@ -27,9 +27,7 @@ where p.product_id in (1,2,3,4)]]></console>
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="71a7df5b-0443-400e-b875-b2a6788a2804" object-ref="consoles/pricing" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="71a7df5b-0443-400e-b875-b2a6788a2804" />

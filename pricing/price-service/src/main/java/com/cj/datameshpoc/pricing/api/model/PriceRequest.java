@@ -4,13 +4,13 @@ import java.util.List;
 
 public class PriceRequest {
 
-    private List<Integer> productIds;
+    private List<Long> productIds;
 
-    public List<Integer> getProductIds() {
+    public List<Long> getProductIds() {
         return productIds;
     }
 
-    public void setProductIds(List<Integer> productIds) {
+    public void setProductIds(List<Long> productIds) {
         this.productIds = productIds;
     }
 }

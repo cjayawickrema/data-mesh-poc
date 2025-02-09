@@ -17,7 +17,10 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="71a7df5b-0443-400e-b875-b2a6788a2804">
-      <console name="pricing" type="STANDARD" schema="public" session="Main"><![CDATA[select * from product]]></console>
+      <console name="pricing" type="STANDARD" schema="public" session="Main"><![CDATA[select * from product p
+left outer join agreement_product ap on ap.product_id = p.product_id
+left outer join agreement a on a.agreement_id = ap.agreement_id and customer_id = 1
+where p.product_id in (1,2,3,4)]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">

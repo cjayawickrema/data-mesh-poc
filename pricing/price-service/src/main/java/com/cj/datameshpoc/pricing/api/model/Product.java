@@ -2,22 +2,22 @@ package com.cj.datameshpoc.pricing.api.model;
 
 public class Product {
 
-    private Integer productId;
+    private Long productId;
     private String name;
     private Double price;
 
     // Constructor, Getters, Setters
-    public Product(Integer productId, String name, Double price) {
+    public Product(Long productId, String name, Double price) {
         this.productId = productId;
         this.name = name;
         this.price = price;
     }
 
-    public Integer getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(Integer productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 

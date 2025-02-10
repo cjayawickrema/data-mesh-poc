@@ -1,0 +1,26 @@
+plugins {
+    id 'application'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.spark:spark-sql_2.12:3.3.3'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+application {
+    mainClass = 'com.cj.datameshpoc.pricing.priceberg.Main'
+}
+
+tasks.withType(JavaExec) {
+    jvmArgs += "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED"
+}

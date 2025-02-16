@@ -10,7 +10,26 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.apache.spark:spark-sql_2.12:3.3.3'
+//    implementation 'org.apache.spark:spark-core_2.12:3.5.0'
+//    implementation 'org.apache.spark:spark-sql_2.12:3.3.3'
+//    implementation 'org.postgresql:postgresql:42.6.0'
+//    implementation 'org.apache.iceberg:iceberg-spark-runtime-3.5_2.12:1.5.0'
+//    // Hadoop AWS (for S3 support)
+//    implementation 'org.apache.hadoop:hadoop-aws:3.3.4'
+//    implementation 'software.amazon.awssdk:s3:2.20.40'
+    // Apache Spark dependencies
+    implementation 'org.apache.spark:spark-core_2.12:3.5.0'
+    implementation 'org.apache.spark:spark-sql_2.12:3.5.0'
+
+    // PostgreSQL JDBC Driver
+    implementation 'org.postgresql:postgresql:42.6.0'
+
+    // Apache Iceberg dependencies
+    implementation 'org.apache.iceberg:iceberg-spark-runtime-3.5_2.12:1.5.0'
+
+    // Hadoop AWS (for S3 support)
+    implementation 'org.apache.hadoop:hadoop-aws:3.3.4'
+    implementation 'software.amazon.awssdk:s3:2.20.40'
 }
 
 test {

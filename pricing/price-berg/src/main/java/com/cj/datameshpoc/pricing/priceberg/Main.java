@@ -13,7 +13,7 @@ public class Main {
                 .master("local[*]")  // Use cluster mode in production
                 .config("spark.sql.catalog.pricing_catalog", "org.apache.iceberg.spark.SparkCatalog")
                 .config("spark.sql.catalog.pricing_catalog.type", "hadoop")
-                .config("spark.sql.catalog.pricing_catalog.warehouse", "s3a://pricing-bucket/pricing")
+                .config("spark.sql.catalog.pricing_catalog.warehouse", "s3a://price-bucket/pricing")
 //                .config("spark.sql.catalog.iceberg", "org.apache.iceberg.spark.SparkCatalog") // Correct Iceberg catalog class
 //                .config("spark.sql.catalog.iceberg.type", "hadoop")  // Use the 'hadoop' type for local/EMR/Hadoop cluster
 //                .config("spark.sql.catalog.iceberg.warehouse", "s3a://my-iceberg-bucket/warehouse")
@@ -85,7 +85,6 @@ public class Main {
                 .select("product_id", "name", "customer_id", "price");
 
         // Create Iceberg table only if not exists
-//        spark.sql("CREATE DATABASE IF NOT EXISTS pricing_catalog.pricing_db");
         spark.sql("CREATE TABLE IF NOT EXISTS pricing_catalog.price_berg " +
                 "(product_id INT, name STRING, customer_id INT, price DECIMAL(10,2)) " +
                 "USING iceberg PARTITIONED BY (customer_id)");

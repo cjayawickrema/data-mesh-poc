@@ -7,7 +7,7 @@ docker run --name pricing-db -e POSTGRES_USER=hello -e POSTGRES_PASSWORD=world -
 
 ## Setup localstack
 ```shell
-docker run --rm -d --name localstack -p 4566:4566 localstack/localstack
+docker run -d --name localstack -p 4566:4566 localstack/localstack
 export AWS_ACCESS_KEY_ID=test
 export AWS_SECRET_ACCESS_KEY=test
 export AWS_DEFAULT_REGION=us-east-1

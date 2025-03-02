@@ -1,5 +1,7 @@
 plugins {
     id 'application'
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 group = 'org.example'
@@ -10,13 +12,6 @@ repositories {
 }
 
 dependencies {
-//    implementation 'org.apache.spark:spark-core_2.12:3.5.0'
-//    implementation 'org.apache.spark:spark-sql_2.12:3.3.3'
-//    implementation 'org.postgresql:postgresql:42.6.0'
-//    implementation 'org.apache.iceberg:iceberg-spark-runtime-3.5_2.12:1.5.0'
-//    // Hadoop AWS (for S3 support)
-//    implementation 'org.apache.hadoop:hadoop-aws:3.3.4'
-//    implementation 'software.amazon.awssdk:s3:2.20.40'
     // Apache Spark dependencies
     implementation 'org.apache.spark:spark-core_2.12:3.5.0'
     implementation 'org.apache.spark:spark-sql_2.12:3.5.0'
@@ -26,6 +21,7 @@ dependencies {
 
     // Apache Iceberg dependencies
     implementation 'org.apache.iceberg:iceberg-spark-runtime-3.5_2.12:1.5.0'
+    implementation 'org.apache.iceberg:iceberg-aws:1.5.0'
 
     // Hadoop AWS (for S3 support)
     implementation 'org.apache.hadoop:hadoop-aws:3.3.4'
@@ -43,3 +39,21 @@ application {
 tasks.withType(JavaExec) {
     jvmArgs += "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED"
 }
+
+// Ensure proper shading to avoid dependency conflicts with Spark
+shadowJar {
+    archiveBaseName.set('shaded')
+    archiveClassifier.set('')
+    archiveVersion.set(null)
+    relocate 'org.apache.hadoop', 'shaded.org.apache.hadoop'
+    relocate 'software.amazon.awssdk', 'shaded.software.amazon.awssdk'
+}
+
+tasks.register('buildFatJar') {
+    dependsOn shadowJar
+    doLast {
+        tasks.shadowJar.actions.each { it.execute(tasks.shadowJar) }
+    }
+}
+
+build.dependsOn buildFatJar

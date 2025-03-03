@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  localstack:
+    image: localstack/localstack:latest
+    ports:
+      - "4566:4566"  # S3 and other services
+    environment:
+      - SERVICES=s3,glue
+      - AWS_DEFAULT_REGION=us-east-1
+      - DOCKER_HOST=unix:///var/run/docker.sock # required for glue to work with docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  spark-iceberg:
+    image: apache/spark:3.5.0 # or a spark version that supports iceberg
+    command: spark-shell --packages org.apache.iceberg:iceberg-spark-runtime-3.5_2.12:1.4.2,org.apache.hadoop:hadoop-aws:3.3.6
+    ports:
+      - "4040:4040"
+    environment:
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      AWS_REGION: us-east-1
+      AWS_ENDPOINT: http://localstack:4566
+      PYSPARK_PYTHON: /opt/spark/bin/pyspark
+    volumes:
+      - ./spark-warehouse:/opt/spark/warehouse # persistent spark warehouse
+      - ./spark-data:/opt/spark/data # persistent data location
+    depends_on:
+      - localstack

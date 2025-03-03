@@ -29,6 +29,8 @@ public class Main {
         Dataset<?> df = spark.read()
                 .jdbc(jdbcUrl, "product", connectionProperties);
 
+        df.show();
+
         df.write()
                 .format("iceberg")
                 .mode("overwrite")

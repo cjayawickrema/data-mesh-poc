@@ -48,6 +48,9 @@ public class Main {
                 .mode("overwrite")
                 .save("iceberg_catalog.product_iceberg");
 
+        Dataset<Row> results = spark.sql("SELECT * FROM iceberg_catalog.product_iceberg");
+        results.show();
+
         spark.stop();
     }
 }

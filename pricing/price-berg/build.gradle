@@ -38,6 +38,7 @@ application {
 
 tasks.withType(JavaExec) {
     jvmArgs += "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED"
+    jvmArgs += "--add-opens=java.base/java.nio=ALL-UNNAMED"
 }
 
 // Ensure proper shading to avoid dependency conflicts with Spark

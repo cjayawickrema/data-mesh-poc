@@ -25,13 +25,18 @@
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files>
+      <object connection-id="df7586ec-725b-4522-a1db-d9a755c9d49a" object-ref="consoles/Connection" />
       <object connection-id="df7586ec-725b-4522-a1db-d9a755c9d49a" object-ref="schemas/public/tables/product" />
+      <object connection-id="df7586ec-725b-4522-a1db-d9a755c9d49a" object-ref="schemas/public/tables/flyway_schema_history" />
+      <object connection-id="df7586ec-725b-4522-a1db-d9a755c9d49a" object-ref="schemas/public/tables/customer" />
     </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="df7586ec-725b-4522-a1db-d9a755c9d49a" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="df7586ec-725b-4522-a1db-d9a755c9d49a" dataset="public.customer" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="df7586ec-725b-4522-a1db-d9a755c9d49a" dataset="public.flyway_schema_history" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="df7586ec-725b-4522-a1db-d9a755c9d49a" dataset="public.product" active-filter-id="5814fa9d-3cb6-4e8b-a258-7b83c0fd5c29">
       <filter id="5814fa9d-3cb6-4e8b-a258-7b83c0fd5c29" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
         <condition column="product_id" operator="=" value="" active="true" />

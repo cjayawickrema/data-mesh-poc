@@ -31,6 +31,18 @@ public class Main {
 
         df.show();
 
+        spark.sql("DROP TABLE IF EXISTS iceberg_catalog.product_iceberg");
+
+        spark.sql("CREATE TABLE iceberg_catalog.product_iceberg (" +
+                "product_id LONG, " +
+                "base_price DECIMAL(10, 2), " +
+                "created_at TIMESTAMP, " +
+                "name STRING, " +
+                "updated_at TIMESTAMP" +
+                ") USING iceberg");
+
+        System.out.println("Iceberg table created: iceberg_catalog.product_iceberg");
+
         df.write()
                 .format("iceberg")
                 .mode("overwrite")

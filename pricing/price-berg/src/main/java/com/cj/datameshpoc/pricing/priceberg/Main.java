@@ -31,7 +31,7 @@ public class Main {
 
         // Example: Process data in chunks based on product_id ranges
         long startProductId = 1;
-        long endProductId = 1; // fixme chunk size
+
         long chunkSize = 1;
 
         spark.sql("DROP TABLE IF EXISTS iceberg_catalog.product_iceberg");
@@ -45,6 +45,8 @@ public class Main {
         System.out.println("Iceberg table created: iceberg_catalog.product_iceberg");
 
         while (startProductId <= getMaxProductId(jdbcUrl, connectionProperties)) {
+            long endProductId = startProductId + chunkSize;
+
             String sql = "SELECT p.product_id, p.name, COALESCE(ap.special_price, p.base_price) AS net_price, a.customer_id " +
                     "FROM product p LEFT JOIN agreement_product ap ON p.product_id = ap.product_id " +
                     "LEFT JOIN agreement a ON ap.agreement_id = a.agreement_id " +
@@ -65,7 +67,6 @@ public class Main {
                     .save("iceberg_catalog.product_iceberg");
 
             startProductId = endProductId;
-            endProductId += chunkSize;
         }
 
         Dataset<Row> results = spark.sql("SELECT * FROM iceberg_catalog.product_iceberg");

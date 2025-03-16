@@ -26,31 +26,55 @@ public class Main {
         connectionProperties.setProperty("password", "world");
         connectionProperties.setProperty("driver", "org.postgresql.Driver");
 
-        Dataset<?> df = spark.read()
-                .jdbc(jdbcUrl, "product", connectionProperties);
+//        Dataset<?> df = spark.read()
+//                .jdbc(jdbcUrl, "product", connectionProperties);
 
-        df.show();
+        // Example: Process data in chunks based on product_id ranges
+        long startProductId = 1;
+        long endProductId = 1; // fixme chunk size
+        long chunkSize = 1;
 
         spark.sql("DROP TABLE IF EXISTS iceberg_catalog.product_iceberg");
 
         spark.sql("CREATE TABLE iceberg_catalog.product_iceberg (" +
                 "product_id LONG, " +
-                "base_price DECIMAL(10, 2), " +
-                "created_at TIMESTAMP, " +
-                "name STRING, " +
-                "updated_at TIMESTAMP" +
+                "customer_id LONG, " +
+                "net_price DECIMAL(10, 2), " +
+                "name STRING " +
                 ") USING iceberg");
-
         System.out.println("Iceberg table created: iceberg_catalog.product_iceberg");
 
-        df.write()
-                .format("iceberg")
-                .mode("overwrite")
-                .save("iceberg_catalog.product_iceberg");
+        while (startProductId <= getMaxProductId(jdbcUrl, connectionProperties)) {
+            String sql = "SELECT p.product_id, p.name, COALESCE(ap.special_price, p.base_price) AS net_price, a.customer_id " +
+                    "FROM product p LEFT JOIN agreement_product ap ON p.product_id = ap.product_id " +
+                    "LEFT JOIN agreement a ON ap.agreement_id = a.agreement_id " +
+                    "WHERE p.product_id >= " + startProductId + " AND p.product_id < " + endProductId;
+
+            System.out.println("Fetching chunk:");
+            System.out.println(sql);
+
+            Dataset<Row> results = spark.read().jdbc(jdbcUrl, "(" + sql + ") as combined_data", connectionProperties);
+
+            System.out.println("Found following data");
+            // Process the results (e.g., write to Iceberg, perform aggregations)
+            results.show();
+
+            results.write()
+                    .format("iceberg")
+                    .mode("overwrite")
+                    .save("iceberg_catalog.product_iceberg");
+
+            startProductId = endProductId;
+            endProductId += chunkSize;
+        }
 
         Dataset<Row> results = spark.sql("SELECT * FROM iceberg_catalog.product_iceberg");
         results.show();
 
         spark.stop();
+    }
+
+    private static long getMaxProductId(String jdbcUrl, Properties connectionProperties) {
+        return 5; // fixme
     }
 }

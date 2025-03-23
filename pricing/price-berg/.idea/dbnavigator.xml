@@ -25,10 +25,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files>
-      <object connection-id="df7586ec-725b-4522-a1db-d9a755c9d49a" object-ref="consoles/Connection" />
       <object connection-id="df7586ec-725b-4522-a1db-d9a755c9d49a" object-ref="schemas/public/tables/product" />
-      <object connection-id="df7586ec-725b-4522-a1db-d9a755c9d49a" object-ref="schemas/public/tables/flyway_schema_history" />
-      <object connection-id="df7586ec-725b-4522-a1db-d9a755c9d49a" object-ref="schemas/public/tables/customer" />
     </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">

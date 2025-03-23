@@ -26,9 +26,6 @@ public class Main {
         connectionProperties.setProperty("password", "world");
         connectionProperties.setProperty("driver", "org.postgresql.Driver");
 
-//        Dataset<?> df = spark.read()
-//                .jdbc(jdbcUrl, "product", connectionProperties);
-
         // Example: Process data in chunks based on product_id ranges
         long startProductId = 1;
 
@@ -76,6 +73,6 @@ public class Main {
     }
 
     private static long getMaxProductId(String jdbcUrl, Properties connectionProperties) {
-        return 5; // fixme
+        return 4; // fixme
     }
 }

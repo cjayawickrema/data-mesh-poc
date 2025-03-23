@@ -42,3 +42,4 @@ bin/
 .DS_Store
 /metastore_db/
 /derby.log
+/localstack-data/
